@@ -8,7 +8,6 @@ from src.features.image_features import (
 
 from src.models.image_classifier import ImageClassifier
 from src.features.audio_features import load_audio, extract_audio_features
-from src.models.audio_classifier import AudioClassifier
 
 from src.features.video_features import (
     extract_video_frames,
