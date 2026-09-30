@@ -1,0 +1,37 @@
+Baseline Confusion Matrices
+============================
+
+Dataset:
+20 samples per modality
+4 held-out test samples per modality
+
+Label convention:
+0 = REAL
+1 = DEEPFAKE
+
+Matrix format:
+[[True Real, False Positive],
+ [False Negative, True Fake]]
+
+
+IMAGE
+------
+[[1, 1],
+ [0, 2]]
+
+AUDIO
+-----
+[[1, 1],
+ [1, 1]]
+
+VIDEO
+-----
+[[1, 1],
+ [2, 0]]
+
+
+Note:
+These are preliminary baseline results from a very small held-out
+test set. Each test sample represents 25 percentage points, so the
+metrics should not be interpreted as reliable estimates of
+generalization performance.
