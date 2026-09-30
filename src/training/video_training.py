@@ -12,6 +12,8 @@ from src.features.video_features import (
 
 from src.models.video_classifier import VideoClassifier
 
+torch.manual_seed(42)
+
 def load_video_dataset():
     features = []
     labels = []
