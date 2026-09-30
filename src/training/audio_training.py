@@ -1,6 +1,9 @@
 import os
 import numpy as np
 import torch
+import joblib
+from sklearn.svm import SVC
+from sklearn.calibration import CalibratedClassifierCV
 
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 
@@ -48,38 +51,24 @@ def train_audio_classifier():
         stratify=y
     )
 
-    model = AudioClassifier()
+    model = CalibratedClassifierCV(
+        SVC(kernel="linear", random_state=42),
+        ensemble=False
+    )
 
-    optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
-    loss_fn = torch.nn.CrossEntropyLoss()
-
-    X_train = torch.tensor(X_train, dtype=torch.float32)
-    y_train = torch.tensor(y_train, dtype=torch.long)
-
-    for epoch in range(30):
-        optimizer.zero_grad()
-
-        output = model(X_train)
-        loss = loss_fn(output, y_train)
-
-        loss.backward()
-        optimizer.step()
+    model.fit(X_train, y_train)
 
     return model, X_test, y_test
 
 def evaluate_audio_classifier(model, X_test, y_test):
-    X_test = torch.tensor(X_test, dtype=torch.float32)
-
-    with torch.no_grad():
-        output = model(X_test)
-        predictions = torch.argmax(output, dim=1).numpy()
+    predictions = model.predict(X_test)
 
     print("Accuracy:", accuracy_score(y_test, predictions))
     print("Precision:", precision_score(y_test, predictions, zero_division=0))
     print("Recall:", recall_score(y_test, predictions, zero_division=0))
     print("F1:", f1_score(y_test, predictions, zero_division=0))
 
-def save_audio_model(model, path="models/audio_classifier.pth"):
-    torch.save(model.state_dict(), path)
+def save_audio_model(model, path="models/audio_classifier.joblib"):
+    joblib.dump(model, path)
     print("Audio model saved:", path)
 
