@@ -1,4 +1,0 @@
-Dataset size: 20 samples per modality
-Test size: 4 samples per modality
-Evaluation type: Baseline held-out split
-Note: Results are preliminary due to the very small dataset.

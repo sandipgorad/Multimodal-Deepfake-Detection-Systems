@@ -1,0 +1,43 @@
+{
+  "visual": {
+    "accuracy": 0.7433,
+    "precision": 0.7239,
+    "recall": 0.7867,
+    "f1": 0.754,
+    "roc_auc": 0.8264
+  },
+  "audio": {
+    "accuracy": 0.7267,
+    "precision": 0.7394,
+    "recall": 0.7,
+    "f1": 0.7192,
+    "roc_auc": 0.822
+  },
+  "visual_audio": {
+    "accuracy": 0.7633,
+    "precision": 0.7423,
+    "recall": 0.8067,
+    "f1": 0.7732,
+    "roc_auc": 0.8579
+  },
+  "visual_audio_consistency": {
+    "accuracy": 0.7633,
+    "precision": 0.7423,
+    "recall": 0.8067,
+    "f1": 0.7732
+  },
+  "image": {
+    "accuracy": 0.6767,
+    "precision": 0.6532,
+    "recall": 0.7533,
+    "f1": 0.6997,
+    "roc_auc": 0.7401
+  },
+  "image_audio": {
+    "accuracy": 0.6933,
+    "precision": 0.6667,
+    "recall": 0.7733,
+    "f1": 0.716,
+    "roc_auc": 0.7835
+  }
+}

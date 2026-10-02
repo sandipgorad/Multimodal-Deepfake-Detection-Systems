@@ -218,3 +218,9 @@ tests/temp/
 models/saved_models/
 logs/
 notebooks/.ipynb_checkpoints/
+
+# Keep trained v3 model artifacts and evaluation results
+!models/v3/
+!models/v3/**/*.json
+!models/v3/**/*.png
+!models/v3/**/*.joblib

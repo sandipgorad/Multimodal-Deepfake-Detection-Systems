@@ -1,1 +1,0 @@
-"""Multimodal Deepfake Detection System."""

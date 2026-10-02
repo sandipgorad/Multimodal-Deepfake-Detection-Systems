@@ -1,20 +1,50 @@
+import subprocess
+
 import librosa
 import numpy as np
 
 
 def load_audio(path):
-    audio, sample_rate = librosa.load(path, sr=16000)
+    command = [
+        "ffmpeg",
+        "-i",
+        path,
+        "-vn",
+        "-ac",
+        "1",
+        "-ar",
+        "16000",
+        "-f",
+        "f32le",
+        "-",
+    ]
 
-    return audio, sample_rate
+    result = subprocess.run(
+        command,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        check=True,
+    )
+
+    audio = np.frombuffer(result.stdout, dtype=np.float32)
+
+    return audio, 16000
 
 
 def extract_audio_features(audio, sample_rate):
-    mfcc = librosa.feature.mfcc(
+    mel = librosa.feature.melspectrogram(
         y=audio,
         sr=sample_rate,
-        n_mfcc=40
+        n_mels=64,
+        n_fft=1024,
+        hop_length=256,
     )
 
-    features = np.mean(mfcc, axis=1)
+    mel_db = librosa.power_to_db(mel, ref=np.max)
 
-    return features
+    return np.concatenate(
+        [
+            np.mean(mel_db, axis=1),
+            np.std(mel_db, axis=1),
+        ]
+    )
